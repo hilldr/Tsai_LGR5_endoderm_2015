@@ -1,0 +1,7 @@
+sample_id	file	total_mass	internal_scale	external_scale
+ES_0	./ME1/abundances.cxb	2.09937e+07	1.25764	1
+ES_1	./ME2/abundances.cxb	1.90841e+07	1.13112	1
+ES_2	./ME3/abundances.cxb	2.42194e+07	1.43382	1
+DefEnd_0	./MD1/abundances.cxb	1.092e+07	0.576457	1
+DefEnd_1	./MD2/abundances.cxb	1.55755e+07	0.827788	1
+DefEnd_2	./MD3/abundances.cxb	1.73897e+07	1.0565	1
