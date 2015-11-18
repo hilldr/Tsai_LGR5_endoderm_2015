@@ -1,77 +1,92 @@
-#    -*- mode: org -*-
-#+STARTUP: overview
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./HTML/CSS/htmlize.css"/>
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./HTML/CSS/readtheorg.css"/>
-#+HTML_HEAD: <script src="./HTML/JS/jquery.min.js"></script>
-#+HTML_HEAD: <script src="./HTML/JS/bootstrap.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="./HTML/JS/jquery.stickytableheaders.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="./HTML/JS/readtheorg.js"></script>
-#+TITLE: LGR4 and LGR5 function redundantly during human endoderm differentiation 
-#+OPTIONS: toc:4 H:4
+Yu-Hwai Tsai^1^, David R. Hill^1^, Namit Kumar^4^, Sha Huang^1^, Briana
+R. Dye^2^, Michael P. Verzi^4^ and Jason R. Spence^1,2,3,\*^
 
-Yu-Hwai Tsai^{1}, David R. Hill^{1}, Namit Kumar^{4}, Sha Huang^{1}, Briana R. Dye^{2}, Michael P. Verzi^{4} and Jason R. Spence^{1,2,3,*}
+^1^Division of Gastroenterology, Department of Internal Medicine
+^2^Department of Cell and Developmental Biology ^3^Center for
+Organogenesis University of Michigan Medical School, Ann Arbor,
+Michigan, USA, 48109
 
-^{1}Division of Gastroenterology, Department of Internal Medicine 
-^{2}Department of Cell and Developmental Biology 
-^{3}Center for Organogenesis
-University of Michigan Medical School, Ann Arbor, Michigan, USA, 48109
+^4^Department of Genetics Rutgers, The State University of New Jersey,
+Piscataway, New Jersey 08854
 
-^{4}Department of Genetics 
-Rutgers, The State University of New Jersey, Piscataway, New Jersey 08854
+^\*^Author for correspondence: spencejr@umich.edu @TheSpenceLab
 
-^{*}Author for correspondence: 
-spencejr@umich.edu
-@TheSpenceLab 
+Author Contributions: YHT and JRS conceived the study YHT, DRH, SH, BRD,
+NK and MPV conducted experiments All authors analyzed data JRS wrote the
+manuscript All authors edited and approved final manuscript
 
-Author Contributions:
-YHT and JRS conceived the study
-YHT, DRH, SH, BRD, NK and MPV conducted experiments
-All authors analyzed data
-JRS wrote the manuscript 
-All authors edited and approved final manuscript
+Summary
+=======
 
-* Summary
-The Lgr family of transmembrane proteins (Lgr4, 5, 6) act as functional receptors for R-spondin proteins (Rspo 1, 2, 3, 4), and have been shown to potentiate Wnt signaling in different contexts. Lgr5, arguably the best characterized of the Lgr family members, was originally identified as a marker of crypt base columnar (CBC) stem cells of the adult murine intestine, and has subsequently been show to act as a stem cell marker in many contexts. Moreover, Lgr members play functionally redundant roles in CBC maintenance. Here, we show that LGR5 is part of the human definitive endoderm (DE) “gene signature”, as LGR5 transcripts are robustly induced when human pluripotent stem cells (hPSCs) are differentiated into DE. Our results demonstrate that LGR4 and 5 function redundantly during human endoderm induction. Consistent with data in human DE, we observe Lgr5 reporter (eGFP) activity in the E8.5 mouse endoderm, and show the ability to linage trace Lgr5-creER cells labeled as early as E8.5 into the adult intestine. ChIPseq shows that LGR5 is directly bound by \beta{}-catenin early during endoderm induction, and functional experiments support a role for LGR proteins as potentiators of WNT signaling during DE induction. Taken together, our results show that LGR proteins are induced in DE, are functionally required for DE induction, and that they function to potentiate WNT signaling during this process.    
+The Lgr family of transmembrane proteins (Lgr4, 5, 6) act as functional
+receptors for R-spondin proteins (Rspo 1, 2, 3, 4), and have been shown
+to potentiate Wnt signaling in different contexts. Lgr5, arguably the
+best characterized of the Lgr family members, was originally identified
+as a marker of crypt base columnar (CBC) stem cells of the adult murine
+intestine, and has subsequently been show to act as a stem cell marker
+in many contexts. Moreover, Lgr members play functionally redundant
+roles in CBC maintenance. Here, we show that LGR5 is part of the human
+definitive endoderm (DE) “gene signature”, as LGR5 transcripts are
+robustly induced when human pluripotent stem cells (hPSCs) are
+differentiated into DE. Our results demonstrate that LGR4 and 5 function
+redundantly during human endoderm induction. Consistent with data in
+human DE, we observe Lgr5 reporter (eGFP) activity in the E8.5 mouse
+endoderm, and show the ability to linage trace Lgr5-creER cells labeled
+as early as E8.5 into the adult intestine. ChIPseq shows that LGR5 is
+directly bound by *β*-catenin early during endoderm induction, and
+functional experiments support a role for LGR proteins as potentiators
+of WNT signaling during DE induction. Taken together, our results show
+that LGR proteins are induced in DE, are functionally required for DE
+induction, and that they function to potentiate WNT signaling during
+this process.
 
-* Bioinformatics methods and results
+Bioinformatics methods and results
+==================================
 
-** Required hardware and software
+Required hardware and software
+------------------------------
 
-*** Hardware
+### Hardware
+
 The analysis machine has the following characteristics:
 
- OS: Debian 7.9 wheezy
- Kernel: x86_64 Linux 3.2.0-4-amd64
- Shell: bash 4.2.37
- CPU: Intel Xeon CPU E5504 @ 2GHz
- GPU: Quadro FX 380
- RAM: 48340MB
+OS: Debian 7.9 wheezy Kernel: x86~64~ Linux 3.2.0-4-amd64 Shell: bash
+4.2.37 CPU: Intel Xeon CPU E5504 @ 2GHz GPU: Quadro FX 380 RAM: 48340MB
 
-*** Software
-The code is intended for the UNIX environment. The following software is required to execute the analysis
-- FastQC v0.11.3
-- Bowtie 2 version 2.2.5
-- cufflinks v2.2.1
-- R version 3.2.2 (2015-08-14) -- "Fire Safety"
+### Software
 
-Scripts and github page prepared using GNU Emacs 24.5.1 with Org-mode version 8.2.10
-**** R package dependencies
-#+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
+The code is intended for the UNIX environment. The following software is
+required to execute the analysis
+-   FastQC v0.11.3
+-   Bowtie 2 version 2.2.5
+-   cufflinks v2.2.1
+-   R version 3.2.2 (2015-08-14) -- "Fire Safety"
+
+Scripts and github page prepared using GNU Emacs 24.5.1 with Org-mode
+version 8.2.10
+
+#### R package dependencies
+
+``` {.r .rundoc-block rundoc-language="R" rundoc-session="*R*" rundoc-eval="yes" rundoc-exports="code" rundoc-tangle="./src/expression_analysis.R"}
 # R package dependencies -------------------------------------------------------
 install.packages(c("matrixStats","ggplot2","MASS","scales","grid"))
-#+END_SRC
+```
 
-** Tuxedo suite pipeline script
-*** Header
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
+Tuxedo suite pipeline script
+----------------------------
+
+### Header
+
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/tuxedo_complete.sh"}
 #! /bin/bash
 GENES=/data/genomes/hg19_genes_refFlat.gtf
 GENOME=/data/genomes/hg19.fa
 INDEX=/data/genomes/hg19
-#+END_SRC
-*** FastQC processing
+```
 
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
+### FastQC processing
+
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/tuxedo_complete.sh"}
 #FASTQC quality control report generator
 mkdir ../DATA/QC
 for file in ../DATA/FASTQ/*.fastq* # will output filename as "$file"
@@ -79,11 +94,11 @@ do
     FILENAME="$file"       
     fastqc --outdir=../DATA/QC $FILENAME
 done
-#+END_SRC
+```
 
+### Tophat/Bowtie processing
 
-*** Tophat/Bowtie processing
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/tuxedo_complete.sh"}
 #! /bin/bash
 mkdir ../DATA/BAM
 for file in ../DATA/FASTQ/*.fastq*
@@ -93,10 +108,11 @@ do
     DIRNAME="${NAME2%.*}"
     tophat2 -p 8 --b2-very-sensitive --no-coverage-search --no-novel-juncs --GTF $GENES -o ../DATA/BAM/$DIRNAME $INDEX $file
 done
-#+END_SRC
+```
 
-*** Cufflinks processing
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
+### Cufflinks processing
+
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/tuxedo_complete.sh"}
 #! /bin/bash
 for d in ../DATA/BAM/*/
 do
@@ -106,21 +122,22 @@ do
     DIRNAME="${d}"
     cufflinks -p 8 -o $DIRNAME --multi-read-correct --compatible-hits-norm --upper-quartile-norm --GTF $GENES ${d}*hits.bam
 done
-#+END_SRC
+```
 
-**** Merged transcriptome setup file
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/gtf_assembly.txt
+#### Merged transcriptome setup file
+
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/gtf_assembly.txt"}
 ../DATA/BAM/Sample_ES1/transcripts.gtf
 ../DATA/BAM/Sample_ES2/transcripts.gtf
 ../DATA/BAM/Sample_ES3/transcripts.gtf
 ../DATA/BAM/Sample_DE1/transcripts.gtf
 ../DATA/BAM/Sample_DE2/transcripts.gtf
 ../DATA/BAM/Sample_DE3/transcripts.gtf
-#+END_SRC
+```
 
-*** Cuffmerge/Cuffquant processing
+### Cuffmerge/Cuffquant processing
 
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/tuxedo_complete.sh"}
 #! /bin/bash
 cuffmerge -g $GENES -s $GENOME -p 8 -o ../DATA/merged_asm gtf_assembly.txt
 for d in ../DATA/BAM/*/
@@ -131,33 +148,35 @@ do
     DIRNAME="${d}"
     cuffquant -p 8 -o $DIRNAME --max-mle-iterations 100000 -v --multi-read-correct ../DATA/merged_asm/merged.gtf ${d}*hits.bam
 done
-#+END_SRC
+```
 
-*** Cuffdiff/Cuffnorm processing
-   
-#+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
+### Cuffdiff/Cuffnorm processing
+
+``` {.bash .rundoc-block rundoc-language="sh" rundoc-export="code" rundoc-eval="no" rundoc-tangle="./src/tuxedo_complete.sh"}
 mkdir ../RESULTS
 # CUFFNORM
 cuffnorm -o ./RESULTS/normout -p 8 -L ES,DefEnd ./DATA/merged_asm/merged.gtf \
 ../DATA/BAM/Sample_ES1/abundances.cxb,../DATA/BAM/Sample_ES2/abundances.cxb,../DATA/BAM/Sample_ES3/abundances.cxb \
 ../DATA/BAM/Sample_DE1/abundances.cxb,../DATA/BAM/Sample_DE2/abundances.cxb,../DATA/BAM/Sample_DE3/abundances.cxb 
-#+END_SRC
-** R script
-*** Import data from Cuffnorm output
+```
 
-#+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
+R script
+--------
+
+### Import data from Cuffnorm output
+
+``` {.r .rundoc-block rundoc-language="R" rundoc-session="*R*" rundoc-eval="yes" rundoc-exports="code" rundoc-tangle="./src/expression_analysis.R"}
 ## FPKM matrix input -----------------------------------------------------------
 data1 <- read.table("../RESULTS/normout/genes.count_table",header=TRUE,sep="\t", stringsAsFactors = FALSE)
 attr.table <- read.table("../RESULTS/normout/genes.attr_table",header=TRUE,sep="\t",stringsAsFactors = FALSE)
 data1$gene_short_name <- attr.table$gene_short_name
 # write out complete gene expression matrix
 write.csv(data1, file="../RESULTS/ES&DE_dataset_cufflinksFPKM.csv")
-#+END_SRC
+```
 
-#+RESULTS:
+### Generate row statistics
 
-*** Generate row statistics
-#+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
+``` {.r .rundoc-block rundoc-language="R" rundoc-session="*R*" rundoc-eval="yes" rundoc-exports="code" rundoc-tangle="./src/expression_analysis.R"}
 # Generate row stats --------------------------------------------------  
 # rename data1 as database to fork downstream additions
 database <- data1
@@ -207,10 +226,11 @@ database$de_count <- rowSums(database[,DE] >= fco)
 # generate an output (present = 1, not present = 0) for each group
 database$es_present <- ifelse(database$es_count > 1, 1, 0)
 database$de_present <- ifelse(database$de_count > 1, 1, 0)
-#+END_SRC
+```
 
-*** "Volcano" expression plot
-#+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
+### "Volcano" expression plot
+
+``` {.r .rundoc-block rundoc-language="R" rundoc-session="*R*" rundoc-eval="yes" rundoc-exports="code" rundoc-tangle="./src/expression_analysis.R"}
   # Generate "Volcano" expression plot -------------------------------------------
   # open png device
   png(filename = "../RESULTS/volcano_plot.png",
@@ -291,24 +311,30 @@ database$de_present <- ifelse(database$de_count > 1, 1, 0)
        col="black",cex=2,font=2)
   # Close plotting device
   dev.off()
-#+END_SRC
+```
 
+![Volcano plot of the log~2~-transformed FPKM ratio (Definitive
+endoderm/Embryonic stem cell) and the -log~10~ p-value. Significant
+changes in expression (p &lt;0.05; two-tailed Student's *t*-test) are
+indicated in blue. There are a total of 6,063 significantly different
+transcripts out of a total 23,999 expressed transcripts (25.3%). The top
+50 upregulated transcripts are highlighted in
+red.](./RESULTS/volcano_plot.png)
 
-#+CAPTION: Volcano plot of the log_{2}-transformed FPKM ratio (Definitive endoderm/Embryonic stem cell) and the -log_{10} p-value. Significant changes in expression (p <0.05; two-tailed Student's /t/-test) are indicated in blue. There are a total of 6,063 significantly different transcripts out of a total 23,999 expressed transcripts (25.3%). The top 50 upregulated transcripts are highlighted in red. 
-[[./RESULTS/volcano_plot.png]]
+Top 50 up-regulated genes (Supplemental Table 1)
+------------------------------------------------
 
-** Top 50 up-regulated genes (Supplemental Table 1)
-#+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
+``` {.r .rundoc-block rundoc-language="R" rundoc-session="*R*" rundoc-eval="yes" rundoc-exports="code" rundoc-tangle="./src/expression_analysis.R"}
   # Supplemental Table 1 ---------------------------------------------------------
   db <- subset(database, database$xlog2 != Inf|database$xlog2 != NA)
   db.50 <- db[1:50,]
   write.csv(db.50,file="../RESULTS/top50upregulated_ES&DE.csv")
-#+END_SRC
+```
 
+Wnt gene expression plot and Supplemental Table 2
+-------------------------------------------------
 
-** Wnt gene expression plot and Supplemental Table 2
-
-#+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
+``` {.r .rundoc-block rundoc-language="R" rundoc-session="*R*" rundoc-eval="yes" rundoc-exports="code" rundoc-tangle="./src/expression_analysis.R"}
   # Import Curated list of Wnt targets -------------------------------------------
   list <- read.csv("../DATA/Wnt_Gene_List.csv",header=FALSE)
   wnt.genes <- list[,1]
@@ -366,16 +392,16 @@ database$de_present <- ifelse(database$de_count > 1, 1, 0)
                   panel.background = element_rect(fill = "grey85", color = "black"))
         ) # close print window
   dev.off()
-#+END_SRC
+```
 
-[[./RESULTS/wnt_scatter.png]]
+![](./RESULTS/wnt_scatter.png)
 
-* Complete workflow (Sequence alignment --> Expression plots)
+Complete workflow (Sequence alignment --&gt; Expression plots)
+==============================================================
 
-#+BEGIN_SRC sh export code :eval no :tangle ./src/Tsai-Lgr5-endoderm-2015.sh
-#! /bin/bash
-# First execute tuxedo pipeline to generate FPKM data (this will take a long time)
-./tuxedo_complete.sh
-# Then execute the R script
-Rscript expression_analysis.R
-#+END_SRC
+    #! /bin/bash
+    # First execute tuxedo pipeline to generate FPKM data (this will take a long time)
+    ./tuxedo_complete.sh
+    # Then execute the R script
+    Rscript expression_analysis.R
+
