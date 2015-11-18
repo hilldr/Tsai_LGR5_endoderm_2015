@@ -1,20 +1,20 @@
 LGR4 and LGR5 function redundantly during human endoderm differentiation\*
 ==========================================================================
 
-Yu-Hwai Tsai<sup>1</sup>, David R. Hill^1^, Namit Kumar^4^, Sha Huang^1^, Briana
-R. Dye^2^, Michael P. Verzi^4^ and Jason R. Spence^1,2,3,\*^
+Yu-Hwai Tsai<sup>1</sup>, David R. Hill<sup>1</sup>, Namit Kumar<sup>4</sup>, Sha Huang<sup>1</sup>, Briana
+R. Dye<sup>2</sup>, Michael P. Verzi<sup>4</sup> and Jason R. Spence<sup>1,2,3,*</sup>
 
-^1^Division of Gastroenterology, Department of Internal Medicine
+<sup>1</sup>Division of Gastroenterology, Department of Internal Medicine
 
-^2^Department of Cell and Developmental Biology
+<sup>2</sup>Department of Cell and Developmental Biology
 
-^3^Center for Organogenesis University of Michigan Medical School, Ann
+<sup>3</sup>Center for Organogenesis University of Michigan Medical School, Ann
 Arbor, Michigan, USA, 48109
 
-^4^Department of Genetics Rutgers, The State University of New Jersey,
+<sup>4</sup>Department of Genetics Rutgers, The State University of New Jersey,
 Piscataway, New Jersey 08854
 
-^\*^Author for correspondence:
+<sup>*</sup>Author for correspondence:
 
 spencejr@umich.edu
 
