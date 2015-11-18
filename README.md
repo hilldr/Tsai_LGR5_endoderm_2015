@@ -1,15 +1,24 @@
+LGR4 and LGR5 function redundantly during human endoderm differentiation\*
+==========================================================================
+
 Yu-Hwai Tsai^1^, David R. Hill^1^, Namit Kumar^4^, Sha Huang^1^, Briana
 R. Dye^2^, Michael P. Verzi^4^ and Jason R. Spence^1,2,3,\*^
 
 ^1^Division of Gastroenterology, Department of Internal Medicine
-^2^Department of Cell and Developmental Biology ^3^Center for
-Organogenesis University of Michigan Medical School, Ann Arbor,
-Michigan, USA, 48109
+
+^2^Department of Cell and Developmental Biology
+
+^3^Center for Organogenesis University of Michigan Medical School, Ann
+Arbor, Michigan, USA, 48109
 
 ^4^Department of Genetics Rutgers, The State University of New Jersey,
 Piscataway, New Jersey 08854
 
-^\*^Author for correspondence: spencejr@umich.edu @TheSpenceLab
+^\*^Author for correspondence:
+
+spencejr@umich.edu
+
+@TheSpenceLab
 
 Author Contributions: YHT and JRS conceived the study YHT, DRH, SH, BRD,
 NK and MPV conducted experiments All authors analyzed data JRS wrote the
@@ -50,8 +59,12 @@ Required hardware and software
 
 The analysis machine has the following characteristics:
 
-OS: Debian 7.9 wheezy Kernel: x86~64~ Linux 3.2.0-4-amd64 Shell: bash
-4.2.37 CPU: Intel Xeon CPU E5504 @ 2GHz GPU: Quadro FX 380 RAM: 48340MB
+-   OS: Debian 7.9 wheezy
+-   Kernel: x86~64~ Linux 3.2.0-4-amd64
+-   Shell: bash 4.2.37
+-   CPU: Intel Xeon CPU E5504 @ 2GHz
+-   GPU: Quadro FX 380
+-   RAM: 48340MB
 
 ### Software
 
