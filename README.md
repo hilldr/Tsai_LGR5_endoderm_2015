@@ -395,7 +395,7 @@ Wnt gene expression plot and Supplemental Table 2
                 geom_text(data = wnt.expression[grep("RSPO2",wnt.expression$gene_short_name),],
                           aes(de_mean,es_mean+7,label = gene_short_name),
                           size = 10,fontface=2) +
-    # Offset RSPO1 to improve visibility
+                # Offset RSPO1 to improve visibility
                 geom_text(data = wnt.expression[grep("RSPO1",wnt.expression$gene_short_name),],
                           aes(de_mean+0.1,es_mean+2,label = gene_short_name),
                           size = 10,fontface=2) +
