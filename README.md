@@ -1,4 +1,4 @@
-LGR4 and LGR5 function redundantly during human endoderm differentiation\*
+LGR4 and LGR5 function redundantly during human endoderm differentiation
 ==========================================================================
 
 Yu-Hwai Tsai<sup>1</sup>, David R. Hill<sup>1</sup>, Namit Kumar<sup>4</sup>, Sha Huang<sup>1</sup>, Briana
