@@ -1,5 +1,5 @@
 param	value
-cmd_line	cuffnorm -o normout032715 -p 8 -L ES,DefEnd merged_asm/merged.gtf ./ME1/abundances.cxb,./ME2/abundances.cxb,./ME3/abundances.cxb ./MD1/abundances.cxb,./MD2/abundances.cxb,./MD3/abundances.cxb 
+cmd_line	cuffnorm -o ../RESULTS/normout -p 8 -L ES,DefEnd ../DATA/merged_asm/merged.gtf ../DATA/BAM/Sample_ES1/abundances.cxb,../DATA/BAM/Sample_ES2/abundances.cxb,../DATA/BAM/Sample_ES3/abundances.cxb ../DATA/BAM/Sample_DE1/abundances.cxb,../DATA/BAM/Sample_DE2/abundances.cxb,../DATA/BAM/Sample_DE3/abundances.cxb 
 version	2.2.1
 SVN_revision	4237
 boost_version	104700

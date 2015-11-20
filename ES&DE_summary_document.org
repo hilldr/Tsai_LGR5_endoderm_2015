@@ -64,8 +64,11 @@ Scripts and github page prepared using GNU Emacs 24.5.1 with Org-mode version 8.
 **** R package dependencies
 #+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
 # R package dependencies -------------------------------------------------------
-install.packages(c("matrixStats","ggplot2","MASS","scales","grid"))
+# Comment this line out if your machine already has these packages installed
+install.packages(c("matrixStats","ggplot2","MASS","scales"),repos='https://watson.nci.nih.gov/cran_mirror/')
 #+END_SRC
+
+#+RESULTS:
 
 ** Tuxedo suite pipeline script
 *** Header
@@ -144,7 +147,7 @@ done
 #+BEGIN_SRC sh :export code :eval no :tangle ./src/tuxedo_complete.sh
 mkdir ../RESULTS
 # CUFFNORM
-cuffnorm -o ./RESULTS/normout -p 8 -L ES,DefEnd ./DATA/merged_asm/merged.gtf \
+cuffnorm -o ../RESULTS/normout -p 8 -L ES,DefEnd ../DATA/merged_asm/merged.gtf \
 ../DATA/BAM/Sample_ES1/abundances.cxb,../DATA/BAM/Sample_ES2/abundances.cxb,../DATA/BAM/Sample_ES3/abundances.cxb \
 ../DATA/BAM/Sample_DE1/abundances.cxb,../DATA/BAM/Sample_DE2/abundances.cxb,../DATA/BAM/Sample_DE3/abundances.cxb 
 #+END_SRC
@@ -251,7 +254,7 @@ database$de_present <- ifelse(database$de_count > 1, 1, 0)
   # subset top 20 up-regulated genes (formerly top 50)
   db.50 <- db[1:20,]
   # subset LGR5
-  lgr5 <- db[30,]
+  lgr5 <- db[24,]
   plot(vplot.1$xlog2,-log10(vplot.1$p),
        type="n",
        ylab=ylab.name,
@@ -300,6 +303,7 @@ database$de_present <- ifelse(database$de_count > 1, 1, 0)
 #+END_SRC
 
 
+
 #+CAPTION: Volcano plot of the log_{2}-transformed FPKM ratio (Definitive endoderm/Embryonic stem cell) and the -log_{10} p-value. Significant changes in expression (p <0.05; two-tailed Student's /t/-test) are indicated in blue. There are a total of 6,063 significantly different transcripts out of a total 23,999 expressed transcripts (25.3%). The top 50 upregulated transcripts are highlighted in red. 
 [[./RESULTS/volcano_plot.png]]
 
@@ -315,64 +319,73 @@ database$de_present <- ifelse(database$de_count > 1, 1, 0)
 ** Wnt gene expression plot and Supplemental Table 2
 
 #+begin_src R :session *R* :eval yes :exports code :tangle ./src/expression_analysis.R
-  # Import Curated list of Wnt targets -------------------------------------------
-  list <- read.csv("../DATA/Wnt_Gene_List.csv",header=FALSE)
-  wnt.genes <- list[,1]
-  # retrieve rows with gene names matching wnt,genes
-  genes <- grep(paste(wnt.genes,collapse="|"),database$gene_short_name)
-  wnt.expression <- as.data.frame(database[genes,])
-  wnt.expression <- wnt.expression[order(wnt.expression$xlog2),]
-  write.csv(wnt.expression, file = "../RESULTS/wnt_gene_expression.csv") # Supplemental Table 2
-  wnt.expression <- subset(wnt.expression, wnt.expression$xlog2 != abs(Inf))
-  # sort by absolute value of log2 expression ratio (biggest differences first)
-  wnt.expression <- wnt.expression[order(-abs(wnt.expression$xlog2)),]
-  # Plot expression in ggplot2 ---------------------------------------------------
-  library(ggplot2)
-  library(MASS)
-  library(scales)
-  library(grid)
-  png(filename = "../RESULTS/wnt_scatter.png",
-        width = 1200,
-        height = 1200,
-        units = "px",
-        pointsize =10,
-        bg = "white") 
-  print(ggplot(data = wnt.expression) + 
-            geom_abline(intercept = 0 , slope = 1,
-                        color = "grey", size = 2, linetype = "dashed") +
-            geom_point(shape = 21,alpha = I(0.95),
-                       aes(de_mean, es_mean, size = -log(p,10),fill = xlog2)) +
-            guides(fill = guide_colorbar(title = expression(paste("DE/ES (log"[2]," FPKM)"))),
-                   size = guide_legend(title = expression(paste("-log"[10],"(p-value)")))) +
-            scale_fill_gradient2(low = "blue", high = "red") +
-            scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                          labels = trans_format("log10", math_format(10^.x))) +
-            scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                          labels = trans_format("log10", math_format(10^.x))) +
-            annotation_logticks(size = 3) +
-            geom_text(data = wnt.expression[c(1:8,10:20),],
-                      aes(de_mean,es_mean,label=gene_short_name),
-                      size = 10, fontface = 2) +
-            # Offset RSPO2 to improve visibility
-            geom_text(data = wnt.expression[grep("RSPO2",wnt.expression$gene_short_name),],
-                      aes(de_mean,es_mean+7,label = gene_short_name),
-                      size = 10,fontface=2) +
-            scale_size(range=c(0.25,25)) +
-            labs(x = "\nDefinitive Endoderm (Mean FPKM)",
-                 y = "ES cells (Mean FPKM)\n") +
-            coord_fixed(ratio = 1) +
-            theme(panel.grid.minor = element_blank(),
-                  panel.grid.major = element_blank(),
-                  legend.position = "bottom",
-                  legend.key.size = unit(2, "cm"),
-                  legend.text = element_text(size = 20),
-                  legend.title = element_text(size = 20, face =2),
-                  axis.text = element_text(size=30, color = "black", face = 2),
-                  axis.title = element_text(size = 35, face = 2),
-                  panel.background = element_rect(fill = "grey85", color = "black"))
-        ) # close print window
-  dev.off()
+      # Import Curated list of Wnt targets -------------------------------------------
+      list <- read.csv("../DATA/Wnt_Gene_List.csv",header=FALSE)
+      wnt.genes <- list[,1]
+      # retrieve rows with gene names matching wnt,genes
+      genes <- grep(paste(wnt.genes,collapse="|"),database$gene_short_name)
+      wnt.expression <- as.data.frame(database[genes,])
+      wnt.expression <- wnt.expression[order(wnt.expression$xlog2),]
+      write.csv(wnt.expression, file = "../RESULTS/wnt_gene_expression.csv") # Supplemental Table 2
+      wnt.expression <- subset(wnt.expression, wnt.expression$xlog2 != abs(Inf))
+      # sort by absolute value of log2 expression ratio (biggest differences first)
+      wnt.expression <- wnt.expression[order(-abs(wnt.expression$xlog2)),]
+      # Plot expression in ggplot2 ---------------------------------------------------
+      library(ggplot2)
+      library(MASS)
+      library(scales)
+      library(grid)
+      png(filename = "../RESULTS/wnt_scatter.png",
+            width = 1200,
+            height = 1200,
+            units = "px",
+            pointsize =10,
+            bg = "white") 
+      print(ggplot(data = wnt.expression) + 
+                geom_abline(intercept = 0 , slope = 1,
+                            color = "grey", size = 2, linetype = "dashed") +
+                geom_point(shape = 21,alpha = I(0.95),
+                           aes(de_mean, es_mean, size = -log(p,10),fill = xlog2)) +
+                guides(fill = guide_colorbar(title = expression(paste("DE/ES (log"[2]," FPKM)"))),
+                       size = guide_legend(title = expression(paste("-log"[10],"(p-value)")))) +
+                scale_fill_gradient2(low = "blue", high = "red") +
+                scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                              labels = trans_format("log10", math_format(10^.x))) +
+                scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                              labels = trans_format("log10", math_format(10^.x))) +
+                annotation_logticks(size = 3) +
+                geom_text(data = wnt.expression[c(1:(grep("RSPO2",wnt.expression$gene_short_name)-1),(grep("RSPO2",wnt.expression$gene_short_name)+2):23),],
+                          aes(de_mean,es_mean,label=gene_short_name),
+                          size = 10, fontface = 2,
+                          # nudge labels to improve visibility
+                          vjust = ifelse(wnt.expression[c(1:(grep("RSPO2",wnt.expression$gene_short_name)-1),(grep("RSPO2",wnt.expression$gene_short_name)+2):23),]$gene_short_name == "TP53TG5" | wnt.expression[c(1:(grep("RSPO2",wnt.expression$gene_short_name)-1),(grep("RSPO2",wnt.expression$gene_short_name)+2):23),]$gene_short_name == "WIF1", -0.45, 0.5),
+                          # move labels for 3 genes with 0 expression in DE out of view rather than plot names underneath y-axis (unreadable). Expression data available in Supplemental Table 2
+                          hjust = ifelse(wnt.expression[c(1:(grep("RSPO2",wnt.expression$gene_short_name)-1),(grep("RSPO2",wnt.expression$gene_short_name)+2):23),]$de_mean < 1, 2, 0.5)) +
+                # Offset RSPO2 to improve visibility
+                geom_text(data = wnt.expression[grep("RSPO2",wnt.expression$gene_short_name),],
+                          aes(de_mean,es_mean+7,label = gene_short_name),
+                          size = 10,fontface=2) +
+    # Offset RSPO1 to improve visibility
+                geom_text(data = wnt.expression[grep("RSPO1",wnt.expression$gene_short_name),],
+                          aes(de_mean+0.1,es_mean+2,label = gene_short_name),
+                          size = 10,fontface=2) +
+                scale_size(range=c(0.25,25)) +
+                labs(x = "\nDefinitive Endoderm (Mean FPKM)",
+                     y = "ES cells (Mean FPKM)\n") +
+                coord_fixed(ratio = 1) +
+                theme(panel.grid.minor = element_blank(),
+                      panel.grid.major = element_blank(),
+                      legend.position = "bottom",
+                      legend.key.size = unit(2, "cm"),
+                      legend.text = element_text(size = 20),
+                      legend.title = element_text(size = 20, face =2),
+                      axis.text = element_text(size=30, color = "black", face = 2),
+                      axis.title = element_text(size = 35, face = 2),
+                      panel.background = element_rect(fill = "grey85", color = "black"))
+            ) # close print window
+      dev.off()
 #+END_SRC
+
 
 [[./RESULTS/wnt_scatter.png]]
 

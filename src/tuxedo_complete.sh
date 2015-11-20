@@ -45,6 +45,6 @@ done
 
 mkdir ../RESULTS
 # CUFFNORM
-cuffnorm -o ./RESULTS/normout -p 8 -L ES,DefEnd ./DATA/merged_asm/merged.gtf \
+cuffnorm -o ../RESULTS/normout -p 8 -L ES,DefEnd ../DATA/merged_asm/merged.gtf \
 ../DATA/BAM/Sample_ES1/abundances.cxb,../DATA/BAM/Sample_ES2/abundances.cxb,../DATA/BAM/Sample_ES3/abundances.cxb \
 ../DATA/BAM/Sample_DE1/abundances.cxb,../DATA/BAM/Sample_DE2/abundances.cxb,../DATA/BAM/Sample_DE3/abundances.cxb
